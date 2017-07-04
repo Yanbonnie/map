@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/zepto.min.js"></script>
+    <!--<script src="js/motion.js"></script>-->
+    <!--<script src="js/weui.min.js"></script>-->
+    <script src="js/vue.min.js"></script>
+    <title>万象城美食节投票评选</title>
+    <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+    <div class="map_index" id="index-box">        
+       <dl>
+           <dd class="logo1 logo pulse"><span><img src="images/map_logo1.png" alt=""></span></dd>
+           <dt class="light light1 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo2 logo pulse"><span><img src="images/map_logo2.png" alt=""></span></dd>
+           <dt class="light light2 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo3 logo pulse"><span><img src="images/map_logo3.png" alt=""></span></dd>
+           <dt class="light light3 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo4 logo pulse"><span><img src="images/map_logo4.png" alt=""></span></dd>
+           <dt class="light light4 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo5 logo pulse"><span><img src="images/map_logo5.png" alt=""></span></dd>
+           <dt class="light light5 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo6 logo pulse"><span><img src="images/map_logo6.png" alt=""></span></dd>
+           <dt class="light light6 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo7 logo pulse"><span><img src="images/map_logo7.png" alt=""></span></dd>
+           <dt class="light light7 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo8 logo pulse"><span><img src="images/map_logo8.png" alt=""></span></dd>
+           <dt class="light light8 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo9 logo pulse"><span><img src="images/map_logo9.png" alt=""></span></dd>
+           <dt class="light light9 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+        <!--<div id="slide01" class="tab">					 
+            <ul class="content">
+                <li style="display:block"></li>
+                <li></li>
+            </ul>
+        </div>-->
+
+        <span class="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
+
+        <div class="page2">
+            <img src="images/map_index2.jpg" alt="">
+        </div>
+       <div class="html-cover ewm-cover">
+            <div class="ewm-box">
+                <b class="close"><img src="images/close.png" alt=""></b>
+                <div class="logo-header">
+                    <span>
+                        <img alt="" src="" id="logo_img">
+                    </span>
+                </div>
+                <img class="cloudy" src="images/cludy.png" alt="">
+                <div class="ewm">
+                    <img src="images/chart.png" alt="">
+                </div>
+                <p>我的二维码<br>扫一扫点亮</p>
+                
+            </div>
+        </div>
+        <!--获奖弹框-->
+        <div class="html-cover gift-cover" style="display:block;">
+            <div class="html-box gift-box ">
+                <img class="gift_img" src="images/gift.jpg" alt="">
+                <div class="ewm_img"><img src="images/chart.png" alt=""></div>
+                <span class="btn"><img src="images/sure_btn.png" alt=""></span>
+            </div>
+        </div>
+        <!--活动规则弹框1-->
+        <div class="html-cover rule-cover ">
+            <div class="html-box rule-box zoomIn">
+                <b class="close2"><img src="images/close.png" alt=""></b>
+                <img class="rule_img" src="images/map_rule.png" alt="">
+            </div>
+        </div>
+        <!--活动规则弹框2-->
+        <div class="html-cover rule-cover2">
+            <div class="html-box rule-box">
+                <b class="close"><img src="images/close.png" alt=""></b>
+                <img class="rule_img" src="images/map_rule.png" alt="">
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(function(){
+            $(".logo").on('click',function(){
+                
+                var imgUrl = $(this).find('img').attr('src');
+                $("#logo_img").attr('src',imgUrl);
+                $('.ewm-cover').fadeIn();
+                //$('.map_btn').addClass('pof');
+            })
+            
+            $(".page2").on('click',function(){
+                $(this).fadeOut();
+            })
+
+            $(".map_btn").on('click',function(){
+                $('.rule-cover2').fadeIn();
+            })
+
+            $('.close').on('click',function(){
+                $(this).closest('.html-cover').fadeOut();
+               // $('.map_btn').removeClass('pof');
+            })
+
+            $('.close2').on('click',function(){
+                $(this).closest('.rule-cover').fadeOut(1000);
+                $('.page2').fadeIn();
+                //$('.map_btn').removeClass('pof');
+            })
+
+            var vm = new Vue({
+                el:"#index-box",
+                data:{},
+                methods:{
+                    init:function(){
+                        
+                    }
+                },
+                mounted(){
+                    this.init();
+                }
+            })
+
+            /*var tabNum = 0;
+            window.tab1 = new mo.PageSlide({
+				target: $('#slide01 .content li'),
+                effect:'scale',
+                event:{
+                    change:function(){
+                        if(tab1.curPage == 1){
+                            tabNum++;
+                        }else{
+                            tabNum = 0;
+                        }
+                        if(tabNum >= 2){
+                            $("#slide01").fadeOut();
+                        }
+                    }
+                }
+			});*/
+        })
+    </script>
+    
+</body>
+</html>

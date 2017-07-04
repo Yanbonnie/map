@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/zepto.min.js"></script>
+    <!--<script src="js/motion.js"></script>-->
+    <!--<script src="js/weui.min.js"></script>-->
+    <script src="js/vue.min.js"></script>
+    <title>万象城美食节投票评选</title>
+    <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+    <div class="map_index">
+        <p class="num"><span>参与人数：xx</span><span>完成挑战人数：xx</span></p>
+       <dl>
+           <dd class="logo1 logo pulse"><span><img src="images/map_logo1.png" alt=""></span></dd>
+           <dt class="light light1 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo2 logo pulse"><span><img src="images/map_logo2.png" alt=""></span></dd>
+           <dt class="light light2 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo3 logo pulse"><span><img src="images/map_logo3.png" alt=""></span></dd>
+           <dt class="light light3 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo4 logo pulse"><span><img src="images/map_logo4.png" alt=""></span></dd>
+           <dt class="light light4 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo5 logo pulse"><span><img src="images/map_logo5.png" alt=""></span></dd>
+           <dt class="light light5 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo6 logo pulse"><span><img src="images/map_logo6.png" alt=""></span></dd>
+           <dt class="light light6 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo7 logo pulse"><span><img src="images/map_logo7.png" alt=""></span></dd>
+           <dt class="light light7 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo8 logo pulse"><span><img src="images/map_logo8.png" alt=""></span></dd>
+           <dt class="light light8 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       <dl>
+           <dd class="logo9 logo pulse"><span><img src="images/map_logo9.png" alt=""></span></dd>
+           <dt class="light light9 hide"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+        <span id="share"><img src="images/friend_share.png" alt=""></span>
+        <span id="join"><img src="images/friend_join.png" alt=""></span>
+        
+        <!--二维码-->
+       <div class="html-cover ewm-cover">
+            <div class="ewm-box">
+                <b class="close"><img src="images/close.png" alt=""></b>
+                <div class="logo-header">
+                    <img alt="" src="images/m_logo3.png">
+                </div>
+                <img class="cloudy" src="images/cludy.png" alt="">
+                <div class="ewm">
+                    <img src="images/chart.png" alt="">
+                </div>
+                <p>我的二维码<br>扫一扫点亮</p>
+                
+            </div>
+        </div>
+
+        <!--再接再厉-->
+        <div class="html-cover reward-cover">
+            <div class="html-box reward-box">
+                <span class="close"></span>
+                <h4>再接再励！</h4>
+                <p>还有<span>6</span>道美食关卡等您点亮！</p>
+            </div>
+        </div>
+        <!--胜利在望-->
+        <div class="html-cover success-cover">
+            <div class="html-box reward-box">
+                <span class="close"></span>
+                <h4>胜利在望！</h4>
+                <p>加速赢取米其林美食套券！</p>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(function(){
+            $(".logo").on('click',function(){
+                $('.ewm-cover').fadeIn();
+                //$('.map_btn').addClass('pof');
+            })
+            
+            $('.close').on('click',function(){
+                $(this).closest('.html-cover').fadeOut();
+                $('.map_btn').removeClass('pof');
+            })
+        })
+    </script>
+    
+</body>
+</html>
