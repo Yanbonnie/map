@@ -5,8 +5,6 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/zepto.min.js"></script>
-    <!--<script src="js/motion.js"></script>-->
-    <!--<script src="js/weui.min.js"></script>-->
     <script src="js/vue.min.js"></script>
     <title>万象城美食节投票评选</title>
     <link rel="stylesheet" href="css/weui.css">
@@ -73,22 +71,7 @@
             </div>
         </div>
 
-        <!--再接再厉-->
-        <div class="html-cover reward-cover">
-            <div class="html-box reward-box">
-                <span class="close"></span>
-                <h4>再接再励！</h4>
-                <p>还有<span>6</span>道美食关卡等您点亮！</p>
-            </div>
-        </div>
-        <!--胜利在望-->
-        <div class="html-cover success-cover">
-            <div class="html-box reward-box">
-                <span class="close"></span>
-                <h4>胜利在望！</h4>
-                <p>加速赢取米其林美食套券！</p>
-            </div>
-        </div>
+        
 
         <!--加载中-->
         <div id="loadingToast" v-show="loadingState">
@@ -196,7 +179,7 @@
                         }
                     },
                     closeEwmHandle(){
-                        $(".ewm-cover").fadeOut();
+                        $(".ewm-cover").hide();
                         this.ewmUrl = "";
                         this.logoUrl = "";
                     },

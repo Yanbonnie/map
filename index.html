@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="js/zepto.min.js"></script>
     <!--<script src="js/motion.js"></script>-->
-    <!--<script src="js/weui.min.js"></script>-->
     <script src="js/vue.min.js"></script>
     <title>万象城美食节投票评选</title>
     <link rel="stylesheet" href="css/weui.css">
@@ -167,7 +166,27 @@
                 </div>
             </div>
         </div>
+
+        <!--再接再厉-->
+        <div class="reward-cover" v-show="rewardState">
+            <div class="html-box reward-box">
+                <span class="close3" @click="closeGiftHandle"></span>
+                <h4>再接再励！</h4>
+                <p>还有<span>{{count}}</span>道美食关卡等您点亮！</p>
+            </div>
+        </div>
+        <!--胜利在望-->
+        <div class="success-cover" v-show="succeState">
+            <div class="html-box reward-box">
+                <span class="close3" @click="closeGiftHandle"></span>
+                <h4>胜利在望！</h4>
+                <p>加速赢取米其林美食套券！</p>
+            </div>
+        </div>
     </div>
+
+    
+    
     <script>
         $(function(){
              var vm = new Vue({
@@ -203,6 +222,7 @@
                             'imgUrl':'images/map_logo9.png'
                         }
                     ],
+                    count:null,
                     backList:[],       //返回数据
                     toastState:false,  //提示框状态
                     toastTxt:'',
@@ -210,8 +230,10 @@
                     loadingTxt:'',
                     dialogState:false,   //按钮提示框
                     dialogTxt:'',
-                    ewmUrl:'',
-                    logoUrl:''
+                    ewmUrl:'',           //二维码的地址
+                    logoUrl:'',          //logo地址
+                    rewardState:false,   //再接再励
+                    succeState:false     //胜利在望
 
                 },
                 methods:{
@@ -231,6 +253,13 @@
                                         for(var i = 0 ; i < That.backList.length; i++){
                                             That.backList[i]['imgUrl']=That.list[i].imgUrl;
                                             That.firstState = false;
+                                            That.count = res.count;
+                                            if(That.count >= 4 && That.count < 9){
+                                                That.rewardState = true;
+                                            }
+                                            if(That.count < 4){
+                                               That.succeState = true;
+                                            }
                                         }
                                     }else{
                                         That.dialogState=true;  //带按钮提示框状态
@@ -250,9 +279,13 @@
                         }
                     },
                     closeEwmHandle(){
-                        $(".ewm-cover").fadeOut();
+                        $(".ewm-cover").hide();
                         this.ewmUrl = "";
                         this.logoUrl = "";
+                    },
+                    closeGiftHandle(){
+                        this.rewardState = false;
+                        this.succeState = false;
                     },
                     knowDialog:function(){
                         this.dialogState = false;
