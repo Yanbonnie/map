@@ -48,7 +48,7 @@
        </div>
 
        <dl v-for="(item,index) in backList" :key="index">
-           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item)"><span><img  :src="item.imgUrl" alt=""></span></dd>
+           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item)"><span :class="item.icon_state == 1 ? 'on' : '' "><img  :src="item.imgUrl" alt=""></span></dd>
            <dt class="light" v-show="item.icon_state == 1" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
        </dl>
        
@@ -117,11 +117,11 @@
             </div>
         </div>
         <!--获奖弹框-->
-        <div class="html-cover gift-cover">
+        <div class="gift-cover" v-show="giftStatus">
             <div class="html-box gift-box ">
                 <img class="gift_img" src="images/gift.jpg" alt="">
-                <div class="ewm_img"><img src="images/chart.png" alt=""></div>
-                <span class="btn"><img src="images/sure_btn.png" alt=""></span>
+                <div class="ewm_img"><img :src="draw_url" alt=""></div>
+                <span class="btn"  @click="giftStatus = false"><img src="images/sure_btn.png" alt=""></span>
             </div>
         </div>
         <!--活动规则弹框1-->
@@ -233,7 +233,9 @@
                     ewmUrl:'',           //二维码的地址
                     logoUrl:'',          //logo地址
                     rewardState:false,   //再接再励
-                    succeState:false     //胜利在望
+                    succeState:false,     //胜利在望
+                    giftStatus:false,
+                    draw_url:""
 
                 },
                 methods:{
@@ -252,13 +254,18 @@
                                         That.backList = res.data;
                                         for(var i = 0 ; i < That.backList.length; i++){
                                             That.backList[i]['imgUrl']=That.list[i].imgUrl;
+                                            //That.backList[i]['icon_state'] = 1;
                                             That.firstState = false;
                                             That.count = res.count;
+                                            That.draw_url = res.draw_url;
                                             if(That.count >= 4 && That.count < 9){
                                                 That.rewardState = true;
                                             }
-                                            if(That.count < 4){
+                                            if(That.count < 4 && That.count > 0){
                                                That.succeState = true;
+                                            }
+                                            if(That.count == 0){
+                                                That.giftStatus = true;
                                             }
                                         }
                                     }else{
@@ -312,7 +319,7 @@
                         })
 
                         $('.close2').on('click',function(){   //自动活动规则
-                            $(this).closest('.rule-cover').fadeOut(1000);
+                            $(this).closest('.rule-cover').fadeOut(300);
                             $('.page2').fadeIn();
                         })
                     }

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
-    <div class="map_index" v-cloak id="index-box"> 
+    <div class="map_index friend-index" v-cloak id="index-box"> 
         <p class="num"><span>参与人数：{{all_count}}</span><span>完成挑战人数：{{finish_count}}</span></p>
        <div v-show="firstState">
             <dl>
@@ -41,18 +41,18 @@
             <dl>
                 <dd class="logo9 logo"><span><img src="images/map_logo9.png" alt=""></span></dd>
             </dl>
+            
        </div>
 
        <dl v-for="(item,index) in backList" :key="index">
-           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item)"><span><img  :src="item.imgUrl" alt=""></span></dd>
+           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item)"><span :class="item.icon_state == 1 ? 'on' : '' "><img  :src="item.imgUrl" alt=""></span></dd>
            <dt class="light" v-show="item.icon_state == 1" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
        </dl>
+        <span class="hand hide"><img src="images/hand.png" alt=""></span>
+        <span class="btn" id="share"><img src="images/friend_share.png" alt=""></span>
+        <span class="btn" id="join"><img src="images/friend_join.png" alt=""></span>
 
-        <span class="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
-
-        <div class="page2">
-            <img src="images/map_index2.jpg" alt="">
-        </div>
+        
         <!--二维码弹框-->
        <div class="html-cover ewm-cover">
             <div class="ewm-box">
@@ -71,7 +71,11 @@
             </div>
         </div>
 
-        
+        <div class="html-cover share-cover">
+            <div class="share-box">
+                <img src="images/share.png" alt="">
+            </div>
+        </div>
 
         <!--加载中-->
         <div id="loadingToast" v-show="loadingState">
@@ -159,7 +163,15 @@
                                             That.backList[i]['imgUrl']=That.list[i].imgUrl;
                                             That.firstState = false;
                                             That.all_count = res.all_count;
-                                            That.finish_count = res.finish_count;
+                                            That.finish_count = res.finish_count; 
+                                           // That.backList[i]['icon_state'] = 1;
+                                            setTimeout(function(){
+                                                $('.hand').removeClass('hide');
+                                                $('.hand').addClass('flash');
+                                            },600);
+                                            setTimeout(function(){
+                                                $('.hand').remove();
+                                            },3000)
                                         }
                                     }else{
                                         That.dialogState=true;  //带按钮提示框状态
@@ -171,7 +183,10 @@
                                 }
                             })
                     },
+                    shareHandle(){},
+                    joinHandle(){},
                     selectLogoHandle(item,index){
+                        $('.hand').remove();
                         if(this.backList.length > 0){
                             this.logoUrl = item.imgUrl;
                             $('.ewm-cover').fadeIn();
@@ -187,7 +202,16 @@
                         this.dialogState = false;
                     },
                     init:function(){
-                        
+                        $('#join').on('click',function(){
+                            window.location.href="index.html";
+                        })
+                        $('#share').on('click',function(){
+                            $('.share-cover').show();
+                        })
+
+                        $('.share-cover').on('click',function(){
+                            $(this).hide();
+                        })
                     }
                 },
                 mounted(){
