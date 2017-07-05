@@ -9,11 +9,51 @@
     <!--<script src="js/weui.min.js"></script>-->
     <script src="js/vue.min.js"></script>
     <title>万象城美食节投票评选</title>
+    <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/map.css">
 </head>
 <body>
-    <div class="map_index" id="index-box">        
-       <dl>
+    <div class="map_index" v-cloak id="index-box">    
+        <!--<dl v-for="(item,index) in list" :key="index">
+           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item,index)"><span><img src="images/map_logo1.png" alt=""></span></dd>
+           <dt class="light hide" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
+       </dl> -->
+       <div v-show="firstState">
+            <dl>
+                <dd class="logo1 logo "><span><img src="images/map_logo1.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo2 logo "><span><img src="images/map_logo2.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo3 logo "><span><img src="images/map_logo3.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo4 logo "><span><img src="images/map_logo4.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo5 logo "><span><img src="images/map_logo5.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo6 logo "><span><img src="images/map_logo6.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo7 logo "><span><img src="images/map_logo7.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo8 logo"><span><img src="images/map_logo8.png" alt=""></span></dd>
+            </dl>
+            <dl>
+                <dd class="logo9 logo"><span><img src="images/map_logo9.png" alt=""></span></dd>
+            </dl>
+       </div>
+
+       <dl v-for="(item,index) in backList" :key="index">
+           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item)"><span><img  :src="item.imgUrl" alt=""></span></dd>
+           <dt class="light" v-show="item.icon_state == 1" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
+       </dl>
+       
+       <!--<dl>
            <dd class="logo1 logo pulse"><span><img src="images/map_logo1.png" alt=""></span></dd>
            <dt class="light light1 hide"><img src="images/map_light.png" alt=""></dt>
        </dl>
@@ -48,7 +88,7 @@
        <dl>
            <dd class="logo9 logo pulse"><span><img src="images/map_logo9.png" alt=""></span></dd>
            <dt class="light light9 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
+       </dl>-->
         <!--<div id="slide01" class="tab">					 
             <ul class="content">
                 <li style="display:block"></li>
@@ -63,22 +103,22 @@
         </div>
        <div class="html-cover ewm-cover">
             <div class="ewm-box">
-                <b class="close"><img src="images/close.png" alt=""></b>
+                <b class="ewm-close" @click="closeEwmHandle"><img src="images/close.png" alt=""></b>
                 <div class="logo-header">
                     <span>
-                        <img alt="" src="" id="logo_img">
+                        <img alt="" :src="logoUrl" id="logo_img">
                     </span>
                 </div>
                 <img class="cloudy" src="images/cludy.png" alt="">
                 <div class="ewm">
-                    <img src="images/chart.png" alt="">
+                    <img :src="ewmUrl" alt="">
                 </div>
                 <p>我的二维码<br>扫一扫点亮</p>
                 
             </div>
         </div>
         <!--获奖弹框-->
-        <div class="html-cover gift-cover" style="display:block;">
+        <div class="html-cover gift-cover">
             <div class="html-box gift-box ">
                 <img class="gift_img" src="images/gift.jpg" alt="">
                 <div class="ewm_img"><img src="images/chart.png" alt=""></div>
@@ -86,7 +126,7 @@
             </div>
         </div>
         <!--活动规则弹框1-->
-        <div class="html-cover rule-cover ">
+        <div class="html-cover rule-cover">
             <div class="html-box rule-box zoomIn">
                 <b class="close2"><img src="images/close.png" alt=""></b>
                 <img class="rule_img" src="images/map_rule.png" alt="">
@@ -99,49 +139,168 @@
                 <img class="rule_img" src="images/map_rule.png" alt="">
             </div>
         </div>
+         <!--提示框-->
+        <div id="toast" class="tip" v-show="toastState">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-icon_msg weui-icon_toast" :class="toastState | toIcon"></i>
+                <p class="weui-toast__content">{{toastTxt}}</p>
+            </div>
+        </div>
+        <!--加载中-->
+        <div id="loadingToast" v-show="loadingState">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="weui-loading weui-icon_toast"></i>
+                <p class="weui-toast__content">{{loadingTxt}}</p>
+            </div>
+        </div>
 
+        <!--按钮提示框-->
+        <!--BEGIN dialog2-->
+        <div class="js_dialog" id="iosDialog2" v-show="dialogState">
+            <div class="weui-mask"></div>
+            <div class="weui-dialog">
+                <div class="weui-dialog__bd">{{dialogTxt}}</div>
+                <div class="weui-dialog__ft">
+                    <a href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary" @click="knowDialog">知道了</a>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         $(function(){
-            $(".logo").on('click',function(){
-                
-                var imgUrl = $(this).find('img').attr('src');
-                $("#logo_img").attr('src',imgUrl);
-                $('.ewm-cover').fadeIn();
-                //$('.map_btn').addClass('pof');
-            })
-            
-            $(".page2").on('click',function(){
-                $(this).fadeOut();
-            })
-
-            $(".map_btn").on('click',function(){
-                $('.rule-cover2').fadeIn();
-            })
-
-            $('.close').on('click',function(){
-                $(this).closest('.html-cover').fadeOut();
-               // $('.map_btn').removeClass('pof');
-            })
-
-            $('.close2').on('click',function(){
-                $(this).closest('.rule-cover').fadeOut(1000);
-                $('.page2').fadeIn();
-                //$('.map_btn').removeClass('pof');
-            })
-
-            var vm = new Vue({
+             var vm = new Vue({
                 el:"#index-box",
-                data:{},
+                data:{
+                    firstState:true,
+                    list:[
+                        {
+                            'imgUrl':'images/map_logo1.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo2.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo3.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo4.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo5.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo6.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo7.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo8.png'
+                        },
+                        {
+                            'imgUrl':'images/map_logo9.png'
+                        }
+                    ],
+                    backList:[],       //返回数据
+                    toastState:false,  //提示框状态
+                    toastTxt:'',
+                    loadingState:false,  //加载中状态
+                    loadingTxt:'',
+                    dialogState:false,   //按钮提示框
+                    dialogTxt:'',
+                    ewmUrl:'',
+                    logoUrl:''
+
+                },
                 methods:{
+                    getData:function(){
+                        var That = this;
+                        That.loadingState = true;
+                        That.loadingTxt = '数据加载中';
+                        $.ajax({
+                                url:'http://test.xhwxpos.com/food/index.php?m=Wap&c=Index&a=ajax_get_lighten&debug=1&code=b6d96527f7764fa17741666bd53aca2f',
+                                dataType:'json',
+                                type:'get',
+                                async:true,
+                                success:function(res){
+                                    That.loadingState = false;
+                                    if(res.sta == 0){                                        
+                                        That.backList = res.data;
+                                        for(var i = 0 ; i < That.backList.length; i++){
+                                            That.backList[i]['imgUrl']=That.list[i].imgUrl;
+                                            That.firstState = false;
+                                        }
+                                    }else{
+                                        That.dialogState=true;  //带按钮提示框状态
+                                        That.dialogTxt=res.msg;
+                                    }                                  
+                                },
+                                error:function(XMLHttpRequest, textStatus, errorThrown) {
+                                    console.log(XMLHttpRequest)
+                                }
+                            })
+                    },
+                    selectLogoHandle(item,index){
+                        if(this.backList.length > 0){
+                            this.logoUrl = item.imgUrl;
+                            $('.ewm-cover').fadeIn();
+                            this.ewmUrl = item.icon_url;
+                        }
+                    },
+                    closeEwmHandle(){
+                        $(".ewm-cover").fadeOut();
+                        this.ewmUrl = "";
+                        this.logoUrl = "";
+                    },
+                    knowDialog:function(){
+                        this.dialogState = false;
+                    },
+                    setLSData:function(key, value){
+                        localStorage.setItem(key, JSON.stringify(value));
+                    },
+                    getLSData:function(key){
+                        return JSON.parse(localStorage.getItem(key));
+                    },
                     init:function(){
-                        
+                        var That = this;
+                         $(".page2").on('click',function(){
+                            $(this).fadeOut();
+                            That.getData();
+                        })
+
+                        $(".map_btn").on('click',function(){
+                            $('.rule-cover2').fadeIn();
+                        })
+
+                        $('.close').on('click',function(){
+                            $(this).closest('.html-cover').fadeOut();
+                        })
+
+                        $('.close2').on('click',function(){   //自动活动规则
+                            $(this).closest('.rule-cover').fadeOut(1000);
+                            $('.page2').fadeIn();
+                        })
                     }
                 },
                 mounted(){
+                    var localData = this.getLSData('isComeIn');
+                    if(!localData){   //不存在
+                        $('.rule-cover').fadeIn();
+                        this.setLSData('isComeIn',1);
+                    }else{
+                        this.getData();
+                    }
+                    
                     this.init();
                 }
             })
+
+            
+           
+
+           
 
             /*var tabNum = 0;
             window.tab1 = new mo.PageSlide({

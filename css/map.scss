@@ -13,6 +13,9 @@ img{
 .hide{
     display: none;
 }
+[v-cloak]{
+    display: none;
+}
 .map_index{
     height: 100%;
     background: url($URL+'map.jpg') no-repeat top center #8ab928;
@@ -181,7 +184,6 @@ img{
     background:rgba(0,0,0,0.6);
     position: fixed;
     z-index: 100;
-    left: 0;
     top: 0;
     display:none;
     .html-box{
@@ -202,6 +204,7 @@ img{
 }
 .gift-cover{
     background: #8ab928;
+    display: none;
     .gift-box{
         width: 100%;
         position: relative;
@@ -239,18 +242,18 @@ img{
     }
 }
 .ewm-cover{
-    display: block;
+    display: none;
     .ewm-box{
         width: REM(750);
         position: absolute;
         left: 0;
-        top: 50%;
+        top: 50%; 
         @include prefixer(transform,translateY(-50%));
-        .close{
+        .ewm-close{
             width: REM(44);
             height: REM(44);
             position: absolute;
-            right: REM(25);
+            right: REM(85);
             top: -30px;
         }
         .logo-header{
@@ -367,6 +370,35 @@ img{
     left: 50%;
     margin-left: REMTWO(224);
 }
+
+/*提示*/
+.tip .weui-icon_msg{
+    font-size: 3rem;
+    padding-bottom:10px;
+}
+
+.weui-toast {
+    position: fixed;
+    z-index: 5000;
+    width: REM(300);
+    min-height: REM(300);
+    top: 50%;
+    left: 50%;
+    margin-top: REMTWO(300);
+    margin-left:REMTWO(300);
+    background: rgba(17,17,17,0.7);
+    text-align: center;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+.weui-toast__content{
+    line-height: REM(80);
+    font-size: 15px;
+}
+.weui-dialog__bd{
+    line-height: 2rem;
+}
+
 
 /*上下滑动*/
 #slide01 {position:absolute;top: 0;left: 0; width:100%; height:100%;margin: 0 auto;background: #fff;}
