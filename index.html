@@ -126,14 +126,14 @@
         </div>
         <!--活动规则弹框1-->
         <div class="html-cover rule-cover">
-            <div class="html-box rule-box zoomIn">
+            <div class="rule-box zoomIn">
                 <b class="close2"><img src="images/close.png" alt=""></b>
                 <img class="rule_img" src="images/map_rule.png" alt="">
             </div>
         </div>
         <!--活动规则弹框2-->
         <div class="html-cover rule-cover2">
-            <div class="html-box rule-box">
+            <div class="rule-box">
                 <b class="close"><img src="images/close.png" alt=""></b>
                 <img class="rule_img" src="images/map_rule.png" alt="">
             </div>
@@ -325,13 +325,17 @@
                     }
                 },
                 mounted(){
-                    var localData = this.getLSData('isComeIn');
+                    /*测试代码*/
+                    $('.rule-cover').fadeIn();
+                    
+                    /*正式环境代码*/
+                    /*var localData = this.getLSData('isComeIn');
                     if(!localData){   //不存在
                         $('.rule-cover').fadeIn();
                         this.setLSData('isComeIn',1);
                     }else{
                         this.getData();
-                    }
+                    }*/
                     
                     this.init();
                 }

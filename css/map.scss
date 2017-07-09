@@ -249,11 +249,17 @@ img{
     }
 }
 .rule-cover,.rule-cover2{
-    .html-box{
+    .rule-box{
+        height: REM(962);
+        position: absolute;
+        top: 50%;
+        margin-top: REMTWO(962);
+        width: 100%;
+        left: -1%;
         .rule_img{
             width: REM(635);
             display: block;
-            margin: 0 auto;    
+            margin: 0 auto;   
         }
         .close2{
             width: REM(44);
