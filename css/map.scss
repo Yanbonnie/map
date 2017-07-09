@@ -1,5 +1,8 @@
 @import "_base.scss";
-
+@import "_loading_22.scss"; 
+.wrap{
+    visibility: hidden;
+}
 html,body{
     width: 100%;
     max-width: 750px;  
@@ -18,7 +21,7 @@ img{
 }
 .map_index{
     height: 100%;
-    background: url($URL+'map.jpg') no-repeat top center #8ab928;
+    background: url($URL+'friend.jpg') no-repeat top center #8ab928;
     @include prefixer(background-size,100% auto);  
     min-height:REM(1208);
     position: relative;
@@ -181,6 +184,12 @@ img{
     #join{
         width: REM(161);
         position: absolute;
+        bottom: REM(40);   
+        left: REM(150);
+    }
+    #map_btn{
+        width: REM(161);
+        position: absolute;
         bottom: REM(40);
         right: REM(150);
     }
@@ -250,18 +259,18 @@ img{
 }
 .rule-cover,.rule-cover2{
     .rule-box{
-        height: REM(962);
+        height: REM(961);
         position: absolute;
         top: 50%;
         margin-top: REMTWO(962);
         width: 100%;
         left: -1%;
         .rule_img{
-            width: REM(635);
+            width: REM(637);
             display: block;
             margin: 0 auto;   
         }
-        .close2{
+        .close2,.close{
             width: REM(44);
             height: REM(44);
             position: absolute;
@@ -398,15 +407,15 @@ img{
 .pof{
     position: fixed !important;
 }
-.map_btn{
-    width: REM(224);
-    margin: 0 auto;
-    display: block;
-    position: absolute;
-    bottom: REM(30);
-    left: 50%;
-    margin-left: REMTWO(224);
-}
+// .map_btn{
+//     width: REM(224);
+//     margin: 0 auto;
+//     display: block;
+//     position: absolute;
+//     bottom: REM(30);
+//     left: 50%;
+//     margin-left: REMTWO(224);
+// }
 
 /*提示*/
 .tip .weui-icon_msg{

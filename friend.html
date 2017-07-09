@@ -49,9 +49,9 @@
            <dt class="light" v-show="item.icon_state == 1" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
        </dl>
         <span class="hand hide"><img src="images/hand.png" alt=""></span>
-        <span class="btn" id="share"><img src="images/friend_share.png" alt=""></span>
+        <!--<span class="btn" id="share"><img src="images/friend_share.png" alt=""></span>-->
         <span class="btn" id="join"><img src="images/friend_join.png" alt=""></span>
-
+        <span class="map_btn" id="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
         
         <!--二维码弹框-->
        <div class="html-cover ewm-cover">
@@ -70,7 +70,14 @@
                 
             </div>
         </div>
-
+        <!--活动规则弹框1-->
+        <div class="html-cover rule-cover">
+            <div class="rule-box">
+                <b class="close"><img src="images/close.png" alt=""></b>
+                <img class="rule_img" src="images/map_rule.png" alt="">
+            </div>
+        </div>
+        <!--分享-->
         <div class="html-cover share-cover">
             <div class="share-box">
                 <img src="images/share.png" alt="">
@@ -205,12 +212,20 @@
                         $('#join').on('click',function(){
                             window.location.href="index.html";
                         })
-                        $('#share').on('click',function(){
+                        /*-$('#share').on('click',function(){
                             $('.share-cover').show();
                         })
 
                         $('.share-cover').on('click',function(){
                             $(this).hide();
+                        })*/
+
+                        $("#map_btn").on('click',function(){
+                            $('.rule-cover').fadeIn();
+                        })
+
+                        $('.close').on('click',function(){
+                            $(this).closest('.html-cover').fadeOut();
                         })
                     }
                 },

@@ -3,20 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/zepto.min.js"></script>
-    <!--<script src="js/motion.js"></script>-->
-    <script src="js/vue.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
     <title>万象城美食节投票评选</title>
     <link rel="stylesheet" href="css/weui.css">
     <link rel="stylesheet" href="css/map.css">
 </head>
-<body>
-    <div class="map_index" v-cloak id="index-box">    
-        <!--<dl v-for="(item,index) in list" :key="index">
-           <dd class="logo pulse" :class="'logo'+(index+1)" @click="selectLogoHandle(item,index)"><span><img src="images/map_logo1.png" alt=""></span></dd>
-           <dt class="light hide" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
-       </dl> -->
+<body>    
+    <div class="map_index wrap" v-cloak id="index-box">   
+        <p class="num"><span>参与人数：{{all_count}}</span><span>完成挑战人数：{{finish_count}}</span></p> 
        <div v-show="firstState">
             <dl>
                 <dd class="logo1 logo "><span><img src="images/map_logo1.png" alt=""></span></dd>
@@ -52,50 +46,9 @@
            <dt class="light" v-show="item.icon_state == 1" :class="'light'+(index+1)"><img src="images/map_light.png" alt=""></dt>
        </dl>
        
-       <!--<dl>
-           <dd class="logo1 logo pulse"><span><img src="images/map_logo1.png" alt=""></span></dd>
-           <dt class="light light1 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo2 logo pulse"><span><img src="images/map_logo2.png" alt=""></span></dd>
-           <dt class="light light2 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo3 logo pulse"><span><img src="images/map_logo3.png" alt=""></span></dd>
-           <dt class="light light3 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo4 logo pulse"><span><img src="images/map_logo4.png" alt=""></span></dd>
-           <dt class="light light4 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo5 logo pulse"><span><img src="images/map_logo5.png" alt=""></span></dd>
-           <dt class="light light5 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo6 logo pulse"><span><img src="images/map_logo6.png" alt=""></span></dd>
-           <dt class="light light6 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo7 logo pulse"><span><img src="images/map_logo7.png" alt=""></span></dd>
-           <dt class="light light7 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo8 logo pulse"><span><img src="images/map_logo8.png" alt=""></span></dd>
-           <dt class="light light8 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>
-       <dl>
-           <dd class="logo9 logo pulse"><span><img src="images/map_logo9.png" alt=""></span></dd>
-           <dt class="light light9 hide"><img src="images/map_light.png" alt=""></dt>
-       </dl>-->
-        <!--<div id="slide01" class="tab">					 
-            <ul class="content">
-                <li style="display:block"></li>
-                <li></li>
-            </ul>
-        </div>-->
-
-        <span class="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
+        <span class="hand hide"><img src="images/hand.png" alt=""></span>
+        <span class="btn" id="share"><img src="images/friend_share.png" alt=""></span>
+        <span class="map_btn" id="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
 
         <div class="page2">
             <img src="images/map_index2.jpg" alt="">
@@ -126,7 +79,7 @@
         </div>
         <!--活动规则弹框1-->
         <div class="html-cover rule-cover">
-            <div class="rule-box zoomIn">
+            <div class="rule-box">
                 <b class="close2"><img src="images/close.png" alt=""></b>
                 <img class="rule_img" src="images/map_rule.png" alt="">
             </div>
@@ -183,16 +136,62 @@
                 <p>加速赢取米其林美食套券！</p>
             </div>
         </div>
+        <!--分享到朋友圈-->
+        <div class="html-cover share-cover">
+            <div class="share-box">
+                <img src="images/share.png" alt="">
+            </div>
+        </div>
     </div>
-
-    
-    
+    <script src="js/zepto.min.js"></script>
+    <script src="js/loading.js"></script>
+    <script src="js/vue.min.js"></script>
     <script>
+			//加载资源数组必须在loading之前进行配置
+			var basep = "images/", //图片目录
+					preLoadSource = [ //背景资源
+						basep + "close.png",
+                        basep + "cludy.png",
+                        basep + "friend.jpg",
+                        basep + "friend_join.png",
+                        basep + "friend_share.png",
+                        basep + "friend_tip.png",
+                        basep + "gift.jpg",
+                        basep + "hand.png",
+                        basep + "icon.png",
+                        basep + "logo_circle.png",
+                        basep + "map.jpg",
+                        basep + "map_index2.jpg",
+                        basep + "map_light.png",
+                        basep + "map_logo1.png",
+                        basep + "map_logo2.png",
+                        basep + "map_logo3.png",
+                        basep + "map_logo4.png",
+                        basep + "map_logo5.png",
+                        basep + "map_logo6.png",
+                        basep + "map_logo7.png",
+                        basep + "map_logo8.png",
+                        basep + "map_logo9.png",
+                        basep + "map_rule.png",
+                        basep + "map_rule_btn.png",
+                        basep + "m_logo1.png",
+                        basep + "m_logo2.png",
+                        basep + "m_logo3.png",
+                        basep + "m_logo4.png",
+                        basep + "m_logo5.png",
+                        basep + "m_logo6.png",
+                        basep + "m_logo7.png",
+                        basep + "m_logo8.png",
+                        basep + "share.png",
+                        basep + "sure_btn.png"
+					];
         $(function(){
              var vm = new Vue({
                 el:"#index-box",
                 data:{
                     firstState:true,
+                    all_count:null,
+                    finish_count:null,
                     list:[
                         {
                             'imgUrl':'images/map_logo1.png'
@@ -252,17 +251,29 @@
                                     That.loadingState = false;
                                     if(res.sta == 0){                                        
                                         That.backList = res.data;
+                                        
                                         for(var i = 0 ; i < That.backList.length; i++){
                                             That.backList[i]['imgUrl']=That.list[i].imgUrl;
                                             //That.backList[i]['icon_state'] = 1;
                                             That.firstState = false;
                                             That.count = res.count;
                                             That.draw_url = res.draw_url;
+                                            That.all_count = res.all_count;
+                                            That.finish_count = res.finish_count; 
                                             if(That.count >= 4 && That.count < 9){
                                                 That.rewardState = true;
                                             }
                                             if(That.count < 4 && That.count > 0){
                                                That.succeState = true;
+                                            }
+                                            if(That.count == 9){
+                                                setTimeout(function(){
+                                                $('.hand').removeClass('hide');
+                                                    $('.hand').addClass('flash');
+                                                },600);
+                                                setTimeout(function(){
+                                                    $('.hand').remove();
+                                                },3000)
                                             }
                                             if(That.count == 0){
                                                 That.giftStatus = true;
@@ -271,6 +282,13 @@
                                     }else{
                                         That.dialogState=true;  //带按钮提示框状态
                                         That.dialogTxt=res.msg;
+                                        setTimeout(function(){
+                            $('.hand').removeClass('hide');
+                            $('.hand').addClass('flash');
+                        },600);
+                        setTimeout(function(){
+                            $('.hand').remove();
+                        },3000)
                                     }                                  
                                 },
                                 error:function(XMLHttpRequest, textStatus, errorThrown) {
@@ -293,6 +311,13 @@
                     closeGiftHandle(){
                         this.rewardState = false;
                         this.succeState = false;
+                        setTimeout(function(){
+                            $('.hand').removeClass('hide');
+                            $('.hand').addClass('flash');
+                        },600);
+                        setTimeout(function(){
+                            $('.hand').remove();
+                        },3000)
                     },
                     knowDialog:function(){
                         this.dialogState = false;
@@ -321,6 +346,14 @@
                         $('.close2').on('click',function(){   //自动活动规则
                             $(this).closest('.rule-cover').fadeOut(300);
                             $('.page2').fadeIn();
+                        })
+
+                        $('#share').on('click',function(){
+                            $('.share-cover').show();
+                        })
+
+                        $('.share-cover').on('click',function(){
+                            $(this).hide();
                         })
                     }
                 },
