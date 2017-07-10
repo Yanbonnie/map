@@ -47,11 +47,36 @@
        </dl>
        
         <span class="hand hide"><img src="images/hand.png" alt=""></span>
-        <span class="btn" id="share"><img src="images/friend_share.png" alt=""></span>
-        <span class="map_btn" id="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
+        <span class="btn" id="share" v-show="comingState == 1"><img src="images/friend_share.png" alt=""></span>
+        <span class="map_btn" v-show="comingState == 1" id="map_btn"><img src="images/map_rule_btn.png" alt=""></span>
+        <!--<span class="map_btn" v-show="comingState == 0" id="map_btn2"><img src="images/map_rule_btn.png" alt=""></span>-->
 
-        <div class="page2">
+        <!--<div class="page2">
             <img src="images/map_index2.jpg" alt="">
+        </div>-->
+        <div id="slide02" class="tab" v-show="comingState == 0">					 
+            <ul class="content">
+                <li style="display:block" class="rule-cover">
+                    <!--<img src="images/map.jpg" alt="">-->
+                    <span class="map_btn" v-show="comingState == 0" id="map_btn2"><img src="images/map_rule_btn.png" alt=""></span>
+                </li>
+                <li>
+                    <img src="images/map_index2.jpg" alt="">
+                </li>
+            </ul>
+        </div>
+        <div id="slide01" class="tab" style="display:none;">					 
+            <ul class="content">
+                <li style="display:block" class="rule-cover">
+                    <div class="rule-box">
+                        <b class="close2"><img src="images/close.png" alt=""></b>
+                        <img class="rule_img" src="images/map_rule.png" alt="">
+                    </div>
+                </li>
+                <li>
+                    <img src="images/map_index2.jpg" alt="">
+                </li>
+            </ul>
         </div>
        <div class="html-cover ewm-cover">
             <div class="ewm-box">
@@ -190,6 +215,7 @@
                 el:"#index-box",
                 data:{
                     firstState:true,
+                    comingState:0,
                     all_count:null,
                     finish_count:null,
                     list:[
@@ -235,6 +261,7 @@
                     succeState:false,     //胜利在望
                     giftStatus:false,
                     draw_url:""
+
 
                 },
                 methods:{
@@ -335,7 +362,13 @@
                             That.getData();
                         })
 
-                        $(".map_btn").on('click',function(){
+                        //第一次进入点击活动规则
+                        $("#map_btn2").on('click',function(){
+                            $('#slide01').show();
+                            $("#slide02").remove();
+                        })
+
+                        $("#map_btn").on('click',function(){
                             $('.rule-cover2').fadeIn();
                         })
 
@@ -343,10 +376,10 @@
                             $(this).closest('.html-cover').fadeOut();
                         })
 
-                        $('.close2').on('click',function(){   //自动活动规则
+                       /* $('.close2').on('click',function(){   //自动活动规则
                             $(this).closest('.rule-cover').fadeOut(300);
                             $('.page2').fadeIn();
-                        })
+                        })*/
 
                         $('#share').on('click',function(){
                             $('.share-cover').show();
@@ -355,20 +388,75 @@
                         $('.share-cover').on('click',function(){
                             $(this).hide();
                         })
+
+                       var tabNum = 0;
+                       window.tab2 = new mo.PageSlide({
+                            target: $('#slide02 .content li'),
+                            effect:'slide',
+                            event:{
+                                change:function(){
+                                    /*if(tab1.curPage == 1){
+                                        tabNum++;
+                                    }else{
+                                        tabNum = 0;
+                                    }
+                                    console.log(tabNum);
+                                    if(tabNum >= 3){
+                                        $("#slide01").fadeOut();
+                                        That.comingState = 1;
+                                    }*/
+                                }
+                            }
+                        });
+                        window.tab1 = new mo.PageSlide({
+                            target: $('#slide01 .content li'),
+                            effect:'slide',
+                            event:{
+                                change:function(){
+                                    /*if(tab1.curPage == 1){
+                                        tabNum++;
+                                    }else{
+                                        tabNum = 0;
+                                    }
+                                    console.log(tabNum);
+                                    if(tabNum >= 3){
+                                        $("#slide01").fadeOut();
+                                        That.comingState = 1;
+                                    }*/
+                                }
+                            }
+                        });
+                        $('#slide01 li .close2').on('click',function(e){
+                            e.preventDefault();
+                            e.stopPropagation();
+                            tab1.next();
+                        })
+                        $('#slide01 li').eq(1).on('click',function(e){
+                            $("#slide01").fadeOut();
+                            That.comingState = 1;
+                            That.getData();
+                        })
+
+                        $('#slide02 li').eq(1).on('click',function(e){
+                            $("#slide02").fadeOut();
+                            That.comingState = 1;
+                            That.getData();
+                        })
                     }
                 },
                 mounted(){
                     /*测试代码*/
-                    $('.rule-cover').fadeIn();
+                    //$('.rule-cover').fadeIn();
                     
                     /*正式环境代码*/
-                    /*var localData = this.getLSData('isComeIn');
+                    var localData = this.getLSData('isComeIn');
                     if(!localData){   //不存在
-                        $('.rule-cover').fadeIn();
-                        this.setLSData('isComeIn',1);
+                        /*$('.rule-cover').fadeIn();
+                        this.setLSData('isComeIn',1);*/
                     }else{
+                        this.comingState = 1;
                         this.getData();
-                    }*/
+                    }
                     
                     this.init();
                 }
