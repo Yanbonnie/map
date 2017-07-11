@@ -10,7 +10,7 @@
 </head>
 <body>    
     <div class="map_index wrap" v-cloak id="index-box">   
-        <p class="num"><span>参与人数：{{all_count}}</span><span>完成挑战人数：{{finish_count}}</span></p> 
+        <p class="num"><span>参与人数：{{all_count}}</span><span>中奖人数：{{finish_count}}</span></p> 
        <div v-show="firstState">
             <dl>
                 <dd class="logo1 logo "><span><img src="images/map_logo1.png" alt=""></span></dd>
@@ -83,10 +83,11 @@
                 <b class="ewm-close" @click="closeEwmHandle"><img src="images/close.png" alt=""></b>
                 <div class="logo-header">
                     <span>
-                        <img alt="" :src="logoUrl" id="logo_img">
+                        <img alt="" :src="foodUrl" id="logo_img">
+                        <!--<img alt="" src="images/foods_logo9.png" id="logo_img">-->
                     </span>
                 </div>
-                <img class="cloudy" src="images/cludy.png" alt="">
+                <!--<img class="cloudy" src="images/cludy.png" alt="">-->
                 <div class="ewm">
                     <img :src="ewmUrl" alt="">
                 </div>
@@ -220,31 +221,40 @@
                     finish_count:null,
                     list:[
                         {
-                            'imgUrl':'images/map_logo1.png'
+                            'imgUrl':'images/map_logo1.png',
+                            'foodUrl':'images/foods_logo1.png'
                         },
                         {
-                            'imgUrl':'images/map_logo2.png'
+                            'imgUrl':'images/map_logo2.png',
+                            'foodUrl':'images/foods_logo2.png'
                         },
                         {
-                            'imgUrl':'images/map_logo3.png'
+                            'imgUrl':'images/map_logo3.png',
+                            'foodUrl':'images/foods_logo3.png'
                         },
                         {
-                            'imgUrl':'images/map_logo4.png'
+                            'imgUrl':'images/map_logo4.png',
+                            'foodUrl':'images/foods_logo4.png'
                         },
                         {
-                            'imgUrl':'images/map_logo5.png'
+                            'imgUrl':'images/map_logo5.png',
+                            'foodUrl':'images/foods_logo5.png'
                         },
                         {
-                            'imgUrl':'images/map_logo6.png'
+                            'imgUrl':'images/map_logo6.png',
+                            'foodUrl':'images/foods_logo6.png'
                         },
                         {
-                            'imgUrl':'images/map_logo7.png'
+                            'imgUrl':'images/map_logo7.png',
+                            'foodUrl':'images/foods_logo7.png'
                         },
                         {
-                            'imgUrl':'images/map_logo8.png'
+                            'imgUrl':'images/map_logo8.png',
+                            'foodUrl':'images/foods_logo8.png'
                         },
                         {
-                            'imgUrl':'images/map_logo9.png'
+                            'imgUrl':'images/map_logo9.png',
+                            'foodUrl':'images/foods_logo9.png'
                         }
                     ],
                     count:null,
@@ -257,12 +267,11 @@
                     dialogTxt:'',
                     ewmUrl:'',           //二维码的地址
                     logoUrl:'',          //logo地址
+                    foodUrl:'',
                     rewardState:false,   //再接再励
                     succeState:false,     //胜利在望
                     giftStatus:false,
                     draw_url:""
-
-
                 },
                 methods:{
                     getData:function(){
@@ -281,6 +290,7 @@
                                         
                                         for(var i = 0 ; i < That.backList.length; i++){
                                             That.backList[i]['imgUrl']=That.list[i].imgUrl;
+                                            That.backList[i]['foodUrl']=That.list[i].foodUrl;
                                             //That.backList[i]['icon_state'] = 1;
                                             That.firstState = false;
                                             That.count = res.count;
@@ -325,7 +335,7 @@
                     },
                     selectLogoHandle(item,index){
                         if(this.backList.length > 0){
-                            this.logoUrl = item.imgUrl;
+                            this.logoUrl = item.foodUrl;
                             $('.ewm-cover').fadeIn();
                             this.ewmUrl = item.icon_url;
                         }
@@ -388,41 +398,40 @@
                         $('.share-cover').on('click',function(){
                             $(this).hide();
                         })
-
-                       var tabNum = 0;
+                        var tabNum = 0;
+                        var tabNum2 = 0;
                        window.tab2 = new mo.PageSlide({
                             target: $('#slide02 .content li'),
                             effect:'slide',
                             event:{
                                 change:function(){
-                                    /*if(tab1.curPage == 1){
-                                        tabNum++;
+                                    if(tab2.curPage == 1){
+                                        tabNum2++;
                                     }else{
-                                        tabNum = 0;
+                                        tabNum2 = 0;
                                     }
-                                    console.log(tabNum);
-                                    if(tabNum >= 3){
-                                        $("#slide01").fadeOut();
+                                    if(tabNum2 >= 2){
+                                        $("#slide02").fadeOut();
                                         That.comingState = 1;
-                                    }*/
+                                    }
                                 }
                             }
                         });
+
                         window.tab1 = new mo.PageSlide({
                             target: $('#slide01 .content li'),
                             effect:'slide',
                             event:{
                                 change:function(){
-                                    /*if(tab1.curPage == 1){
+                                    if(tab1.curPage == 1){
                                         tabNum++;
                                     }else{
                                         tabNum = 0;
                                     }
-                                    console.log(tabNum);
-                                    if(tabNum >= 3){
+                                    if(tabNum >= 2){
                                         $("#slide01").fadeOut();
                                         That.comingState = 1;
-                                    }*/
+                                    }
                                 }
                             }
                         });

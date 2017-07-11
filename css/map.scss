@@ -287,30 +287,34 @@ img{
     }
 }
 .ewm-cover{
-    display: none;
+    display: block;
+    z-index: 100000;
     .ewm-box{
-        width: REM(750);
+        width: REM(658);
+        height: REM(1062);
+        background: url($URL+'ewm_bg.png') no-repeat;
+        @include prefixer(background-size,100% 100%);
         position: absolute;
         left: 0;
         top: 50%; 
+        left: 50%;
+        margin-left: REMTWO(658);
         @include prefixer(transform,translateY(-50%));
         .ewm-close{
             width: REM(44);
             height: REM(44);
             position: absolute;
-            right: REM(85);
-            top: -30px;
+            right: REM(15);
+            top: -10px;
         }
-        .logo-header{
-            width: REM(323);
-            height: REM(169);
-            background: #dad0b6;
-            border: REM(10) #8c6836 solid;
+        .logo-header{            
+            width: REM(400);
+            min-height: REM(400);
             @include prefixer(border-radius,REM(5));
             margin: 0 auto;
+            margin-top: REM(150);
             span{
-                width: REM(323);
-                height: REM(169);
+                width: REM(400);
                 text-align: center;
                 /*垂直居中*/
                 display: table-cell;
@@ -336,7 +340,7 @@ img{
         .ewm{
             width: REM(300);
             height: REM(300);
-            margin: 0 auto 0; 
+            margin: REM(30) auto 0; 
             background: #fff;
             @include prefixer(border-radius,REM(10));
             /*垂直居中*/
@@ -347,7 +351,6 @@ img{
                 max-height:100%;
                 width: auto;
                 padding: 10px;
-                // border: 1px solid #f0f;
                 box-sizing: border-box;
                 margin: 0 auto;
             }
@@ -357,7 +360,7 @@ img{
             text-align: center;
             font-weight: bold;
             color: #fff;
-            padding-top: REM(50);
+            padding-top: REM(30);
                 
         }
         .btn{
