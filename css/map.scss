@@ -287,8 +287,7 @@ img{
     }
 }
 .ewm-cover{
-    display: block;
-    z-index: 100000;
+    display: none;
     .ewm-box{
         width: REM(658);
         height: REM(1062);
@@ -479,7 +478,37 @@ img{
     position: relative;
     img{width: 100%;height: auto;}
 }
+.arrow {
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    bottom: REM(150);
+    left: 50%;
+    margin-left: -4px;
+    border: 3px solid transparent;
+    border-bottom: 3px solid #fff;
+    border-left: 3px solid #fff;
+    z-index: 99;
+    opacity: .8;
+    @include prefixer(transform,rotate(-45deg));
+    @include prefixer(animation,arrow 1.5s infinite ease-in-out);
+}
 
+@-webkit-keyframes arrow {
+    0% {
+        opacity:0;
+        -webkit-transform:translate(0, 0px) rotate(-45deg);
+    }
+    50% {
+        opacity:1;
+        -webkit-transform:translate(0, 5px) rotate(-45deg) ;
+    }
+    100% {
+        opacity:0;
+        -webkit-transform:translate(0, 10px) rotate(-45deg);
+    }
+}
 /*类似心跳*/
 @keyframes pulse {
        0% {
